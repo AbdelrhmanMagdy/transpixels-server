@@ -118,4 +118,4 @@ edges =[
 (points[20],points[14],1),
 (points[19],points[14],1),
 ]
-halls = {'344':(540,239),'319':points[4],'IEEE':points[0],'WC':points[11],'323':(167,152),'341':points[14]}
+halls = {'344':(540,239),'319':points[4],'IEEE':points[0],'WC':points[11],'329':points[6],'341':points[14]}
