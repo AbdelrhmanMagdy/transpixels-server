@@ -5,9 +5,18 @@ import mapLogic as ml
 from os import environ
 from flask import jsonify
 import pytesseract as pts
-
+import data as data
 app = Flask(__name__)
 
+def validateHall(res):
+    # Trying to find a valid 3 digit numbers from the ocr output string
+    validHall = ''
+    if res:
+        numsInStr = [int(s) for s in res.split() if s.isdigit()]
+        for i in numsInStr:
+            if len(str(i)) == 3:
+                validHall = str(i)
+    return validHall
 
 @app.route('/mark', methods = ['GET', 'POST'])
 def mark():
@@ -19,15 +28,22 @@ def mark():
             ocrOut = ocr.run(tempImg)
         except:
             ocrOut = pts.image_to_string(tempImg)
-        # Trying to find a valid 3 digit numbers from the ocr output string
+
+        if ocrOut == '':
+            ocrOut = pts.image_to_string(tempImg)
+        try:
+            validateHall(ocrOut)
+            data.halls[ocrOut]
+        except:
+            ocrOut = pts.image_to_string(tempImg)
+            try:
+                validateHall(ocrOut)
+                data.halls[ocrOut]
+            except:
+                res = None
         res = ocrOut if ocrOut else None
-        validHall = ''
-        if res:
-            numsInStr = [int(s) for s in res.split() if s.isdigit()]
-            for i in numsInStr:
-                if len(str(i)) == 3:
-                    validHall = str(i)
-                
+        validHall = validateHall(res)
+
         try:
             # Get the map marked at certain valid hall
             src = ml.mark(validHall)
