@@ -11,7 +11,7 @@ app = Flask(__name__)
 
 @app.route('/mark', methods = ['GET', 'POST'])
 def mark():
-    tempImg = '/home/abdelrhmanmagdy/Desktop/GP/temp.jpg'
+    tempImg = 'temp.jpg'
     if request.method == 'POST':
         f = request.files.get('image')
         f.save(tempImg)
@@ -20,7 +20,6 @@ def mark():
         except:
             ocrOut = pts.image_to_string(tempImg)
         # Trying to find a valid 3 digit numbers from the ocr output string
-        print('ocrOut',ocrOut)
         res = ocrOut if ocrOut else None
         validHall = ''
         if res:
@@ -28,7 +27,7 @@ def mark():
             for i in numsInStr:
                 if len(str(i)) == 3:
                     validHall = str(i)
-            
+                
         try:
             # Get the map marked at certain valid hall
             src = ml.mark(validHall)

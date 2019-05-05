@@ -12,7 +12,7 @@ def locate(src, dst):
     out = graph.dijkstra(halls[src],halls[dst])
     layer = cv2.resize(img.copy(), (610,315))
     for i in range(0, len(out)-1):
-        cv2.line(layer, out[i], out[i+1], (0,255,0), thickness=5, lineType=8, shift=0)
+        cv2.line(layer, out[i], out[i+1], (0,0,255), thickness=2, lineType=8, shift=0)
     layer = cv2.resize(layer, (500, 350))
     layer = cv2.rotate(layer, rotateCode=cv2.ROTATE_90_COUNTERCLOCKWISE)
     retval, buffer = cv2.imencode('.jpg', layer)
