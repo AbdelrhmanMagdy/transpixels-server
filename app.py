@@ -8,6 +8,7 @@ import pytesseract as pts
 import data as data
 app = Flask(__name__)
 
+# we use this function to try to find a valid hall number from the ocr' output (res: Text)
 def validateHall(res):
     # Trying to find a valid 3 digit numbers from the ocr output string
     validHall = ''
@@ -18,6 +19,8 @@ def validateHall(res):
                 validHall = str(i)
     return validHall
 
+# takes imgage: File we perform ocr algorithm to try to find the hall number from the image
+# then returns a base64 image of the map with the *here are you* mark & location of that hall 
 @app.route('/mark', methods = ['GET', 'POST'])
 def mark():
     tempImg = 'temp.jpg'
@@ -55,6 +58,7 @@ def mark():
         })
     return 'Service Failed!', 400
 
+# takes src: Text & dst: Text & returns a base64 image of the map with the shortest path 
 @app.route('/locate', methods = ['GET', 'POST'])
 def locate():
     if request.method == 'GET':

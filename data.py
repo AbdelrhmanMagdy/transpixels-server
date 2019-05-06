@@ -1,3 +1,6 @@
+# from those points and edges we dijkstra algorithm to determine the shortest path
+# note: all weights are equally weighted
+
 points = [
 (293,243), 
 (411,239),
@@ -38,6 +41,7 @@ points = [
 (409,149),
 (41,202)
 ]
+
 edges =[
 (points[1],points[2],1),
 (points[1],points[36],1),
@@ -118,4 +122,6 @@ edges =[
 (points[20],points[14],1),
 (points[19],points[14],1),
 ]
+
+# currently avaliable halls
 halls = {'344':(540,239),'319':points[4],'IEEE':points[0],'WC':points[11],'329':points[6],'341':points[14]}

@@ -2,6 +2,11 @@ import pytesseract
 import cv2
 import numpy as np
 
+# this function takes the path of the image on the driver, loads it
+# then performs a thresthod filter determined by var x to filter out
+# all the colors that are less bright than x, then whiten out the remaining pixels form the threshold
+# then it performs some diolations & erosions & some opening & closing to filter out all the elements
+# from the image except the hall number, then we use ocr algorithm to try to find out the hall number eventually
 def run(path):
     img = cv2.imread(path)
 
